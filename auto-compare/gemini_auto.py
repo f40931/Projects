@@ -69,12 +69,16 @@ def send_to_gemini(text):
         # 如果失敗，保險起見用最原始的 Alt+Tab 頂替一下
         pyautogui.hotkey('alt', 'tab')
     
+""" 
+## 現在沒辦法解決找到gemini 對話框的方法
+
     time.sleep(0.8) # 給視窗一點反應時間
     # 3. 執行貼上與送出
     # 注意：請確保你的 Edge 焦點是在 Gemini 的輸入框內
     pyautogui.hotkey('ctrl', 'v')  # 貼上內容
     time.sleep(0.2)
     pyautogui.press('enter')       # 送出 Prompt
+ """
 
 if __name__ == "__main__":
     try:
