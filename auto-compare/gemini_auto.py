@@ -1,6 +1,7 @@
 import pyperclip
 import pyautogui
 import time
+from pywinauto import Desktop
 
 def start_automation():
     print("自動化程式已啟動... 請依序複製「你的翻譯」與「正確解答」")
@@ -40,17 +41,37 @@ def start_automation():
         time.sleep(0.5) # 每 0.5 秒檢查一次，避免占用過多 CPU
 
 def send_to_gemini(text):
-    # 切換到瀏覽器（假設你已經開著 Gemini 的分頁）
-    # 使用 Alt + Tab 或是根據你的視窗排序切換，這裡建議手動點到瀏覽器後啟動程式
-    # 或者你可以使用快捷鍵直接貼上
+
+    # 1. 將組合好的 Prompt 放入剪貼簿
+    pyperclip.copy(text) 
     
-    pyperclip.copy(text) # 將組合好的字串放入剪貼簿
+    try:
+        # 2. 尋找 Edge 視窗
+        # 我們尋找標題包含 "Edge" 的視窗
+        windows = Desktop(backend="win32").windows()
+        edge_win = None
+        
+        for w in windows:
+            if "Edge" in w.window_text():
+                edge_win = w
+                break
+        
+        if edge_win:
+            # 強制設定焦點
+            edge_win.set_focus()
+            print("🚀 已成功切換至 Edge")
+        else:
+            print("❌ 找不到 Edge 視窗，請確認 Edge 是否已開啟")
+            return
+
+    except Exception as e:
+        print(f"切換視窗時發生小意外 (但不影響): {e}")
+        # 如果失敗，保險起見用最原始的 Alt+Tab 頂替一下
+        pyautogui.hotkey('alt', 'tab')
     
-    # 模擬自動操作
-    time.sleep(0.5) 
-    pyautogui.hotkey('alt', 'tab') # 切換視窗到瀏覽器 (視情況調整次數)
-    input()
-    time.sleep(0.5)
+    time.sleep(0.8) # 給視窗一點反應時間
+    # 3. 執行貼上與送出
+    # 注意：請確保你的 Edge 焦點是在 Gemini 的輸入框內
     pyautogui.hotkey('ctrl', 'v')  # 貼上內容
     time.sleep(0.2)
     pyautogui.press('enter')       # 送出 Prompt
