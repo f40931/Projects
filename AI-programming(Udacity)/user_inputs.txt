@@ -1,11 +1,11 @@
 Transformational AI: Analyzing Ecommerce Large Datasets for Machine Learning
-Completed by: BB
+Completed by: Ban-Ban Chen
 —————————————-
 
-Question 1: 
-Question 2: 
-Question 3: 
-Question 4: 
-Question 5: 
-Question 6: 價格中斷都沒有產品
-Question 7: 比較便宜的比較多負平
+Question 1: Columns: The dataset contains 10 columns including rating (scores), title/text (review content), images (media links), asin/parent_asin (product IDs), user_id (reviewer ID), timestamp (Unix format), helpful_vote, and verified_purchase status.  Data Types: I observed Floats/Integers for numerical values (ratings, timestamps), Objects/Strings for text fields (titles, IDs), and Nested Structures (List/Dict) for the images column.  Structure: The data is structured as a tabular DataFrame where each row represents a unique user review, combining quantitative metrics with qualitative text.
+Question 2: Observation: The output shows the first five rows of the raw dataset.  Assessment: It is as expected for raw data but lacks readability.  Reasoning: Long strings in text and images are truncated with ..., and the timestamp is in a non-human-readable Unix format.
+Question 3: We used pd.set_option to improve readability
+Question 4: The Reviews dataset focuses on user experiences (ratings, text reviews, and timestamps), while the Metadata dataset focuses on product specifications (categories, prices, brands, and technical features).
+Question 5: The most helpful method is .info(). It identifies missing values by showing the Non-Null Count for each column.
+Question 6: Low Price: Highest frequency (14 products) is concentrated between $0–$50.  High Price: Frequency drops nearly to zero as price increases beyond $200.  Outlier: A single outlier exists at the $900 price point.
+Question 7: Observation: Top-rated products (4.5–5.0) are mostly clustered in the low price range ($0–$100).  Consistency: A perfect 5.0 rating appears at both the lowest ($0) and highest ($900) price points.
